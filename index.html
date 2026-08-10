@@ -38,7 +38,7 @@
             left: 10%;
         }
 
-        /* Container Pembungkus Utama */
+        /* Container Pembungkus */
         .slider-wrapper {
             position: relative;
             width: 90%;
@@ -49,16 +49,15 @@
             z-index: 1;
         }
 
-        /* Container Kotak Surat dengan Masking Ketat (Agar Tidak Bocor) */
+        /* Frame Utama (Memotong Objek di Luar Kotak) */
         .slider-container {
             width: 100%;
-            overflow: hidden; /* Mencegah slide lain kelihatan */
+            overflow: hidden; /* Mengunci agar slide samping tidak kelihatan */
             border-radius: 24px;
             box-shadow: 0 20px 45px rgba(220, 100, 130, 0.25);
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            position: relative;
         }
 
         /* Track Slider */
@@ -68,11 +67,11 @@
             width: 100%;
         }
 
-        /* Isi Setiap Slide */
+        /* Setiap Kotak Slide Pas 1 Halaman Full */
         .card {
+            flex: 0 0 100%; /* KUNCI PERBAIKAN: Memaksa 1 kotak = 100% lebar kontainer */
             width: 100%;
-            flex-shrink: 0;
-            padding: 50px 65px; /* Margin samping ditambah agar tidak bertabrakan dengan panah */
+            padding: 50px 60px;
             text-align: left;
             display: flex;
             flex-direction: column;
@@ -108,7 +107,7 @@
             font-style: italic;
         }
 
-        /* Tombol Panah (Posisi di Luar Kotak / Pas di Pinggir) */
+        /* Navigasi Panah */
         .arrow-btn {
             position: absolute;
             top: 50%;
@@ -162,90 +161,78 @@
 
         @media (max-width: 650px) {
             .card {
-                padding: 40px 40px;
+                padding: 40px 35px;
             }
             h1 { font-size: 1.8rem; }
             p { font-size: 1.15rem; }
-            .arrow-prev { left: 5px; }
-            .arrow-next { right: 5px; }
+            .arrow-prev { left: -12px; }
+            .arrow-next { right: -12px; }
         }
     </style>
 </head>
 <body>
 
     <div class="slider-wrapper">
-        <!-- Panah Navigasi -->
         <button class="arrow-btn arrow-prev" onclick="moveSlide(-1)">&larr;</button>
         <button class="arrow-btn arrow-next" onclick="moveSlide(1)">&rarr;</button>
 
-        <!-- Container Kotak Surat -->
         <div class="slider-container">
             <div class="slides-track" id="track">
 
-                <!-- Surat 1 -->
                 <div class="card">
                     <span class="letter-number">Bagian I</span>
                     <h1>Awal Menyapa</h1>
                     <p>Surat ini ditulis hanya untuk mengingatkanmu, bahwa kehadiranmu selalu membawa ketenangan yang sulit dijelaskan dengan kata-kata.</p>
                 </div>
 
-                <!-- Surat 2 -->
                 <div class="card">
                     <span class="letter-number">Bagian II</span>
                     <h1>Rasa Terima Kasih</h1>
                     <p>Terima kasih telah bertahan sejauh ini dan tetap melangkah dengan kebaikan yang selalu kamu bawa setiap harinya.</p>
                 </div>
 
-                <!-- Surat 3 -->
                 <div class="card">
                     <span class="letter-number">Bagian III</span>
                     <h1>Tentang Senyumanmu</h1>
                     <p>Melihatmu tersenyum selalu cukup untuk meredakan bisingnya dunia. Semoga harimu senantiasa dipenuhi hal-hal baik.</p>
                 </div>
 
-                <!-- Surat 4 -->
                 <div class="card">
                     <span class="letter-number">Bagian IV</span>
                     <h1>Pengingat Istirahat</h1>
                     <p>Jika hari terasa melelahkan, ingatlah untuk berhenti sejenak. Kamu tidak harus selalu kuat di setiap waktu.</p>
                 </div>
 
-                <!-- Surat 5 -->
                 <div class="card">
                     <span class="letter-number">Bagian V</span>
                     <h1>Cahaya Penting</h1>
                     <p>Di antara banyaknya hal yang terjadi di dunia, kamu tetap menjadi salah satu alasan berharga yang patut disyukuri.</p>
                 </div>
 
-                <!-- Surat 6 -->
                 <div class="card">
                     <span class="letter-number">Bagian VI</span>
                     <h1>Kehangatan</h1>
                     <p>Mengingat setiap percakapan kita selalu memberikan rasa nyaman yang hangat, bagai jeda tenang di tengah hari yang padat.</p>
                 </div>
 
-                <!-- Surat 7 -->
                 <div class="card">
                     <span class="letter-number">Bagian VII</span>
                     <h1>Doa Terbaik</h1>
                     <p>Semoga langkahmu selalu dimudahkan, pikiranmu didekatkan pada kedamaian, dan mimpimu perlahan menjadi nyata.</p>
                 </div>
 
-                <!-- Surat 8 -->
                 <div class="card">
                     <span class="letter-number">Bagian VIII</span>
                     <h1>Waktu yang Berharga</h1>
                     <p>Setiap momen yang dihabiskan untuk mengenalmu adalah bagian dari perjalanan waktu yang sangat saya hargai.</p>
                 </div>
 
-                <!-- Surat 9 -->
                 <div class="card">
                     <span class="letter-number">Bagian IX</span>
                     <h1>Tetaplah Menjadi Diri Sendiri</h1>
                     <p>Jangan pernah ragu akan nilai dirimu. Kamu yang apa adanya sudah lebih dari cukup dan istimewa.</p>
                 </div>
 
-                <!-- Surat 10 -->
                 <div class="card">
                     <span class="letter-number">Bagian X</span>
                     <h1>Penutup</h1>
@@ -255,7 +242,6 @@
             </div>
         </div>
 
-        <!-- 10 Dots Navigasi -->
         <div class="dots-container" id="dotsContainer"></div>
     </div>
 
