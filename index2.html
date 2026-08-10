@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Untukmu</title>
-    <!-- Import Font Serif Klasik untuk Kesan Surat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -21,14 +20,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Background tetap sama */
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
             overflow: hidden;
             position: relative;
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Cahaya Background */
         body::before {
             content: '';
             position: absolute;
@@ -41,21 +38,21 @@
             left: 10%;
         }
 
-        /* Container Utama */
+        /* Container Pembungkus */
         .slider-wrapper {
             position: relative;
             width: 90%;
-            max-width: 650px; /* Diperbesar dari 420px */
+            max-width: 650px;
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 1;
         }
 
-        /* Frame Surat (Sizing Diperbesar) */
+        /* Frame Utama (Memotong Objek di Luar Kotak) */
         .slider-container {
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; /* Mengunci agar slide samping tidak kelihatan */
             border-radius: 24px;
             box-shadow: 0 20px 45px rgba(220, 100, 130, 0.25);
             background: rgba(255, 255, 255, 0.9);
@@ -70,12 +67,12 @@
             width: 100%;
         }
 
-        /* Styling Lembar Surat */
+        /* Setiap Kotak Slide Pas 1 Halaman Full */
         .card {
-            min-width: 100%;
-            padding: 55px 45px; /* Area dalam diperbesar */
-            text-align: left; /* Alignment kiri ala surat */
-            flex-shrink: 0;
+            flex: 0 0 100%; /* KUNCI PERBAIKAN: Memaksa 1 kotak = 100% lebar kontainer */
+            width: 100%;
+            padding: 50px 60px;
+            text-align: left;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -104,29 +101,29 @@
         p {
             font-family: 'Cormorant Garamond', serif;
             color: #333;
-            font-size: 1.35rem; /* Ukuran font teks diperbesar */
+            font-size: 1.35rem;
             line-height: 1.8;
-            min-height: 140px; /* Ruang teks diperluas */
+            min-height: 120px;
             font-style: italic;
         }
 
-        /* Panah Navigasi */
+        /* Navigasi Panah */
         .arrow-btn {
             position: absolute;
-            top: 45%;
+            top: 50%;
             transform: translateY(-50%);
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(220, 100, 130, 0.2);
-            width: 50px;
-            height: 50px;
+            border: 1px solid rgba(220, 100, 130, 0.3);
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
             color: #d62828;
-            font-size: 20px;
+            font-size: 18px;
             transition: all 0.25s ease;
             z-index: 10;
         }
@@ -134,11 +131,11 @@
         .arrow-btn:hover {
             background: #d62828;
             color: white;
-            transform: translateY(-50%) scale(1.08);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        .arrow-prev { left: -25px; }
-        .arrow-next { right: -25px; }
+        .arrow-prev { left: -24px; }
+        .arrow-next { right: -24px; }
 
         /* Indikator Dots */
         .dots-container {
@@ -162,96 +159,80 @@
             border-radius: 10px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 650px) {
             .card {
-                padding: 40px 25px;
+                padding: 40px 35px;
             }
-            h1 {
-                font-size: 1.8rem;
-            }
-            p {
-                font-size: 1.15rem;
-            }
-            .arrow-prev { left: -10px; }
-            .arrow-next { right: -10px; }
+            h1 { font-size: 1.8rem; }
+            p { font-size: 1.15rem; }
+            .arrow-prev { left: -12px; }
+            .arrow-next { right: -12px; }
         }
     </style>
 </head>
 <body>
 
     <div class="slider-wrapper">
-        <!-- Tombol Panah Navigasi -->
         <button class="arrow-btn arrow-prev" onclick="moveSlide(-1)">&larr;</button>
         <button class="arrow-btn arrow-next" onclick="moveSlide(1)">&rarr;</button>
 
-        <!-- Container Kotak Surat -->
         <div class="slider-container">
             <div class="slides-track" id="track">
 
-                <!-- Surat 1 -->
                 <div class="card">
                     <span class="letter-number">Bagian I</span>
                     <h1>Awal Menyapa</h1>
                     <p>Surat ini ditulis hanya untuk mengingatkanmu, bahwa kehadiranmu selalu membawa ketenangan yang sulit dijelaskan dengan kata-kata.</p>
                 </div>
 
-                <!-- Surat 2 -->
                 <div class="card">
                     <span class="letter-number">Bagian II</span>
                     <h1>Rasa Terima Kasih</h1>
                     <p>Terima kasih telah bertahan sejauh ini dan tetap melangkah dengan kebaikan yang selalu kamu bawa setiap harinya.</p>
                 </div>
 
-                <!-- Surat 3 -->
                 <div class="card">
                     <span class="letter-number">Bagian III</span>
                     <h1>Tentang Senyumanmu</h1>
                     <p>Melihatmu tersenyum selalu cukup untuk meredakan bisingnya dunia. Semoga harimu senantiasa dipenuhi hal-hal baik.</p>
                 </div>
 
-                <!-- Surat 4 -->
                 <div class="card">
                     <span class="letter-number">Bagian IV</span>
                     <h1>Pengingat Istirahat</h1>
                     <p>Jika hari terasa melelahkan, ingatlah untuk berhenti sejenak. Kamu tidak harus selalu kuat di setiap waktu.</p>
                 </div>
 
-                <!-- Surat 5 -->
                 <div class="card">
                     <span class="letter-number">Bagian V</span>
                     <h1>Cahaya Penting</h1>
                     <p>Di antara banyaknya hal yang terjadi di dunia, kamu tetap menjadi salah satu alasan berharga yang patut disyukuri.</p>
                 </div>
 
-                <!-- Surat 6 -->
                 <div class="card">
                     <span class="letter-number">Bagian VI</span>
                     <h1>Kehangatan</h1>
                     <p>Mengingat setiap percakapan kita selalu memberikan rasa nyaman yang hangat, bagai jeda tenang di tengah hari yang padat.</p>
                 </div>
 
-                <!-- Surat 7 -->
                 <div class="card">
                     <span class="letter-number">Bagian VII</span>
                     <h1>Doa Terbaik</h1>
                     <p>Semoga langkahmu selalu dimudahkan, pikiranmu didekatkan pada kedamaian, dan mimpimu perlahan menjadi nyata.</p>
                 </div>
 
-                <!-- Surat 8 -->
                 <div class="card">
                     <span class="letter-number">Bagian VIII</span>
                     <h1>Waktu yang Berharga</h1>
                     <p>Setiap momen yang dihabiskan untuk mengenalmu adalah bagian dari perjalanan waktu yang sangat saya hargai.</p>
                 </div>
 
-                <!-- Surat 9 -->
                 <div class="card">
                     <span class="letter-number">Bagian IX</span>
                     <h1>Tetaplah Menjadi Diri Sendiri</h1>
                     <p>Jangan pernah ragu akan nilai dirimu. Kamu yang apa adanya sudah lebih dari cukup dan istimewa.</p>
                 </div>
 
-                <!-- Surat 10 -->
                 <div class="card">
                     <span class="letter-number">Bagian X</span>
                     <h1>Penutup</h1>
@@ -261,7 +242,6 @@
             </div>
         </div>
 
-        <!-- 10 Dots Navigasi -->
         <div class="dots-container" id="dotsContainer"></div>
     </div>
 
@@ -271,7 +251,6 @@
         const track = document.getElementById('track');
         const dotsContainer = document.getElementById('dotsContainer');
 
-        // Render 10 titik indikator
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
